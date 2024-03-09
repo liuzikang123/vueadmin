@@ -1,30 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <el-config-provider :locale="zhCn">
+    <routerView></routerView>
+  </el-config-provider>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script lang="ts" setup>
+import zhCn from 'element-plus/dist/locale/zh-cn'
+import { ElConfigProvider } from 'element-plus'
+
+</script>
+
+<style lang="less">
+@import url('~@/assets/css/base.css');
+::v-deep.el-table__header {
+    width: 100% !important;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+::v-deep.el-table__body {
+    width: 100% !important;
 }
 </style>

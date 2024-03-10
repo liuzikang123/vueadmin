@@ -58,7 +58,7 @@ export const layoutList: Array<RouteRecordRaw> = [
         path: 'userPost',
         name: 'userPost',
         component: () => import('@/views/user-post/user-post-list.vue'),
-        meta: { title: '岗位管理', icon: 'Crop' },
+        meta: { title: '岗位管理', icon: 'Wallet' },
         children: [
           {
             path: 'edit/:code?',
@@ -68,6 +68,30 @@ export const layoutList: Array<RouteRecordRaw> = [
             props: true,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: 'customer',
+    name: 'customer',
+    component: () => import('@/views/customer/customer-list.vue'),
+    meta: { title: '我的客户', icon: 'Avatar' },
+    children: [
+      {
+        path: 'edit/:id?',
+        name: 'customerEdit',
+        component: () => import('@/views/customer/customer-edit.vue'),
+        meta: { title: '我的客户编辑', back: 'customer' },
+        props: true,
+        children: [
+          {
+            path: 'detail/:customerId/:followId?',
+            name: 'customerEditDetail',
+            component: () => import('@/views/customer/customer-edit-detail.vue'),
+            meta: { title: '回访记录编辑', back: true },
+            props: true,
+          },
+        ]
       },
     ],
   },

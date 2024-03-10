@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div class="login-suspension">
-      <div class="title">欢迎登录</div>
+      <div class="title">欢迎登录{{userInfo.a}}</div>
       <el-form
         label-position="top"
         :model="form"
@@ -36,7 +36,10 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { requiredRule, maxStr6 } from '@/utils/index'
 import apis from '@/apis'
 import message from '@/utils/message'
+import { useUserInfo } from '@/store/useUserInfo'
 
+const userInfo = useUserInfo()
+console.log(userInfo)
 interface RuleForm {
   username: string,
   password: string,
@@ -52,14 +55,23 @@ const rules = reactive<FormRules<RuleForm>>({
   username: [requiredRule('用户名'), maxStr6('用户名')],
   password: [requiredRule('密码'), maxStr6('密码')],
 })
+
+interface InfoType {
+  username: string,
+  status: string
+}
 interface LoginRespon {
-  token: string
+  token: string,
+  userInfo: InfoType
 }
 const onLogin = async () => {
   try { await formRef.value?.validate() } catch { return }
   try {
-    const { token } = await apis.login.login(form) as LoginRespon
-    window.localStorage.setItem('token', token)
+    const res = await apis.login.login(form) as LoginRespon
+    // window.localStorage.setItem('token', token)
+    console.log(userInfo)
+    console.log(userInfo.updateUseInfo)
+    userInfo?.updateUseInfo(res)
     message('登录成功')
     router.push({
       name: 'index'

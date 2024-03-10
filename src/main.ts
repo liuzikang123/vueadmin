@@ -2,13 +2,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
-// import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { componentList } from '@/utils/component-page'
 import LayJsonSchemaForm from "@layui/json-schema-form";
 import "@layui/json-schema-form/lib/index.css";
+import { createPinia } from 'pinia'
 
+const pinia = createPinia()
 const app = createApp(App)
 
 // element-plus的全局icon注册
@@ -24,5 +25,6 @@ componentList.forEach(({ key, value }) => {
 app.use(router)
 app.use(LayJsonSchemaForm)
 app.use(ElementPlus)
+app.use(pinia)
 
 app.mount('#app')

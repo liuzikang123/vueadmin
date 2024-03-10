@@ -21,5 +21,9 @@
     display: flex;
     align-items: center;
   }
+
+  & + .row-page {
+    margin-bottom: 15px;
+  }
 }
 </style>

@@ -5,7 +5,7 @@
     <div class="user">
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
-          admin
+          <span class="username">{{userInfo.getUserName}}</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -24,11 +24,14 @@
 import LayoutBreadcrumb from './layout-breadcrumb.vue';
 import { ArrowDown } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
+import { useUserInfo } from '@/store/useUserInfo'
 
 enum menuType {
   'userInfo' = 1,
   'outLogin' = 2,
 }
+
+const userInfo = useUserInfo()
 
 const router = useRouter()
 
@@ -55,5 +58,9 @@ const handleCommand = (command: string | number) => {
   color: var(--el-color-primary);
   display: flex;
   align-items: center;
+}
+.username {
+  font-weight: bold;
+
 }
 </style>

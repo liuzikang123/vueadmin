@@ -46,9 +46,13 @@ const isActive = (name: string) => {
 
 const onBack = () => {
   const find = routerForm.matched[routerForm.matched.length - 1];
-  router.push({
-    name: find?.meta?.back as string
-  })
+  if (find?.meta?.back === true) {
+    router.back()
+  } else {
+    router.push({
+      name: find?.meta?.back as string
+    })
+  }
 };
 
 const isShowBack = computed(() => {

@@ -9,7 +9,9 @@ export interface ConfigType {
 }
 
 export interface DictType {
-  status: any[]
+  status: any[],
+  department: any[],
+  userPost: any[],
 }
 
 export interface UserListItem {

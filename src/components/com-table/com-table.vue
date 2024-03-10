@@ -7,6 +7,7 @@
     class="table"
     max-height="550"
   >
+    <slot></slot>
     <template v-for="(item) in tableHeaders" :key="item.prop">
       <el-table-column :property="item.prop" :label="item.label" v-if="item.required">
         <template #default="{row}">
@@ -27,7 +28,6 @@
     v-model:current-page="pagination.current"
     v-model:page-size="pagination.size"
     :page-sizes="[10, 20, 30, 50, 100]"
-    :small="small"
     layout="total, sizes, prev, pager, next, jumper"
     :total="pagination.total"
     @size-change="handleSizeChange"
@@ -39,15 +39,17 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, defineProps, defineEmits, onMounted, reactive, defineExpose
+  withDefaults, defineProps, defineEmits, onMounted, reactive, defineExpose, ref
 } from 'vue'
 
-const emit = defineEmits(['onChangeRoute', 'load'])
+const emit = defineEmits(['onChangeRoute', 'load', 'selection-change'])
 interface TableType {
   tableHeaders: unknown[],
+  selectTable: unknown[],
 }
 withDefaults(defineProps<TableType>(), {
   tableHeaders: () => [],
+  selectTable: () => [],
 })
 
 const pagination = reactive({
@@ -100,13 +102,16 @@ const search = () => {
   loadProxy()
 }
 
-const handleSelectionChange = () => {
-  //
+const selectTable = ref([])
+
+const handleSelectionChange = (val: unknown) => {
+  emit('selection-change', val)
 }
 
 defineExpose({
   reset,
   search,
+  selectTable,
 })
 </script>
 
